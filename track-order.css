@@ -1,0 +1,298 @@
+/* ==========================================================================
+   Happy Queen's Crafty House — Track Order Page
+   Layout adapted from reference design, using the site's existing tokens
+   ========================================================================== */
+
+.active-link {
+  color: var(--color-text) !important;
+  position: relative;
+}
+
+.active-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+}
+
+/* --- Section shell ----------------------------------------------------------- */
+.track-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.track-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: start;
+  padding: 64px 0 88px;
+}
+
+.track-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: 0 16px 32px rgba(22, 59, 74, 0.10);
+}
+
+/* --- Left card: info ----------------------------------------------------------- */
+.track-info-card {
+  padding: 40px;
+}
+
+.track-info-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.12;
+  color: var(--color-text);
+}
+
+.track-info-title .hero-title-highlight {
+  display: inline;
+}
+
+.track-info-desc {
+  margin-top: 16px;
+  max-width: 480px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-light);
+}
+
+.track-detail-grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.track-detail {
+  background-color: var(--color-accent-dark);
+  border: 1.5px solid var(--color-primary);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.track-detail h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary-light);
+  margin-bottom: 8px;
+}
+
+.track-detail p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--color-white);
+}
+
+.track-privacy-note {
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 20px;
+  background-color: var(--color-accent-dark);
+  border: 1.5px solid var(--color-primary);
+  border-radius: 16px;
+}
+
+.track-privacy-note i {
+  margin-top: 3px;
+  color: var(--color-primary-light);
+  font-size: 15px;
+}
+
+.track-privacy-note p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--color-white);
+}
+
+/* --- Right card: form ----------------------------------------------------------- */
+.track-form-card {
+  padding: 40px;
+}
+
+.track-form-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.12;
+  color: var(--color-text);
+}
+
+.track-form {
+  margin-top: 28px;
+}
+
+.track-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.track-form label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.track-form input {
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  padding: 13px 16px;
+}
+
+.track-form input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: var(--color-white);
+}
+
+.track-form input::placeholder {
+  color: var(--color-text-light);
+  opacity: 0.7;
+}
+
+.track-submit {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.track-form-helper {
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+}
+
+.track-form-links {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.track-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Payment methods --------------------------------------------------------------- */
+.payment-methods {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.payment-methods-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.payment-methods-badges {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.payment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--color-accent-dark);
+  background-color: var(--color-primary-pale);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 6px 16px 6px 6px;
+}
+
+.payment-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 13px;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.payment-badge-icon img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin: auto;
+}
+
+.payment-badge-gcash .payment-badge-icon {
+  background-color: #0072CE;
+}
+
+.payment-badge-paymaya .payment-badge-icon {
+  background-color: #00A950;
+}
+
+.payment-divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--color-border);
+}
+
+/* --- Responsive ------------------------------------------------------------------- */
+@media (max-width: 980px) {
+  .track-content {
+    grid-template-columns: 1fr;
+    padding: 40px 0 56px;
+  }
+
+  .track-info-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 620px) {
+  .track-info-card,
+  .track-form-card {
+    padding: 26px;
+  }
+
+  .track-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .track-form-links {
+    flex-direction: column;
+  }
+}
