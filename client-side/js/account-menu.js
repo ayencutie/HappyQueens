@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     logoutBtn.addEventListener('click', function () {
       // Front-end only: no real session yet, just returns to the login page
       alert('Logged out! (front-end demo only)');
-      window.location.href = '../html/index.html';
+      window.location.href = 'index.html';
     });
   }
 });

@@ -1,0 +1,362 @@
+/* ==========================================================================
+   Happy Queen's Crafty House — Contact Us Page (v2, with Inquiry Form)
+   Uses the same design tokens defined in styles.css (:root)
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.active-link {
+  color: var(--color-text) !important;
+  position: relative;
+}
+
+.active-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+}
+
+/* --- Contact hero ----------------------------------------------------------- */
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  padding: 72px 0 56px;
+}
+
+.contact-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+  margin-top: 8px;
+}
+
+.contact-subtitle {
+  max-width: 560px;
+  margin-top: 22px;
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--color-text-light);
+}
+
+/* --- Main layout -------------------------------------------------------------- */
+.contact-main {
+  padding: 8px 0 56px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--color-text);
+}
+
+.section-subtext {
+  margin-top: 8px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+}
+
+/* --- Contact info card --------------------------------------------------------- */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 34px;
+}
+
+.contact-list {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.contact-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.contact-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: var(--color-primary);
+  background-color: var(--color-primary-pale);
+  border-radius: 12px;
+}
+
+.contact-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-item-text h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.contact-item-text a {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.contact-item-text a:hover {
+  text-decoration: underline;
+}
+
+.contact-item-text span {
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+/* --- Inquiry Form card ---------------------------------------------------------- */
+.inquiry-form-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 34px;
+}
+
+.inquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="file"],
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-body, inherit);
+  font-size: 14px;
+  color: var(--color-text);
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.form-group input[type="file"] {
+  padding: 8px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 72px;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* Service-specific field blocks — hidden until that service is chosen */
+.service-fields {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--color-primary-pale);
+  border-radius: 14px;
+}
+
+.service-fields.active {
+  display: flex;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.radio-option {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500 !important;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+  accent-color: var(--color-accent);
+  width: 16px;
+  height: 16px;
+}
+
+.inquiry-submit-btn {
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* --- View shop location -------------------------------------------------------- */
+.view-location-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.view-location-btn {
+  gap: 10px;
+}
+
+/* --- Location card (used on shop-location.html) --------------------------------- */
+.contact-map-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 34px;
+}
+
+.contact-map-embed {
+  margin-top: 24px;
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 340px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid var(--color-border);
+}
+
+.contact-map-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-map-link {
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+}
+
+.back-to-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.back-to-contact:hover {
+  text-decoration: underline;
+}
+
+
+/* --- Responsive -------------------------------------------------------------------- */
+@media (max-width: 980px) {
+  .contact-title {
+    font-size: 40px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .contact-info,
+  .inquiry-form-card,
+  .contact-map-card {
+    padding: 26px;
+  }
+
+  .message-banner-content {
+    padding: 32px 24px;
+  }
+
+  .message-banner-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .message-banner-btn {
+    width: 100%;
+  }
+
+  .view-location-btn {
+    width: 100%;
+  }
+}
