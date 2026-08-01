@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Track Order — Happy Queen's Crafty House</title>
+  <title>Happy Queen's Crafty House</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="track-order.css">
+  <link rel="stylesheet" href="../css/homepage.css">
+  <link rel="stylesheet" href="../css/register.css">
+  <link rel="stylesheet" href="../css/login-modal.css">
+  <link rel="stylesheet" href="../css/account-menu.css">
 </head>
 <body>
 
@@ -30,105 +32,90 @@
       </div>
 
       <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about-us.html">About Us</a></li>
-        <li><a href="our-services.html">Our Services</a></li>
-        <li><a href="contact-us.html">Contact Us</a></li>
-        <li><a href="track-order.html" class="active-link">Track Order</a></li>
+        <li><a href="../html/">Home</a></li>
+        <li><a href="../html/">About Us</a></li>
+        <li><a href="../html/">Our Services</a></li>
+        <li><a href="../html/">Contact Us</a></li>
+        <li><a href="../html/">Track Order</a></li>
       </ul>
 
       <div class="nav-actions">
-        <button class="btn btn-outline">Log In</button>
-        <button class="btn btn-filled">Register</button>
+        <div class="account-menu" id="accountMenu">
+          <button type="button" class="account-trigger" id="accountMenuBtn" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-solid fa-chevron-down account-chevron"></i>
+          </button>
+
+          <div class="account-dropdown" id="accountDropdown" role="menu">
+            <a href="profile.html" class="account-dropdown-item" role="menuitem"><i class="fa-solid fa-user"></i> View Profile</a>
+            <a href="orders.html" class="account-dropdown-item" role="menuitem"><i class="fa-solid fa-box"></i> View Order</a>
+            <a href="settings.html" class="account-dropdown-item" role="menuitem"><i class="fa-solid fa-gear"></i> Settings</a>
+            <div class="account-dropdown-divider"></div>
+            <button type="button" class="account-dropdown-item account-dropdown-logout" id="logoutBtn" role="menuitem">
+              <i class="fa-solid fa-right-from-bracket"></i> Log Out
+            </button>
+          </div>
+        </div>
       </div>
 
     </nav>
   </header>
 
-  <!-- Track Order Section -->
-  <section class="track-hero">
+  <!-- Hero -->
+  <section class="hero">
     <div class="hero-background-shape"></div>
 
-    <div class="track-content container">
+    <div class="hero-content container">
 
-      <!-- Left card: info -->
-      <div class="track-card track-info-card">
-
-        <h1 class="track-info-title">
-          CUSTOMER ORDER <span class="hero-title-highlight">TRACKING</span>
+      <div class="hero-text">
+        <h1 class="hero-title">
+          CUSTOMIZED<br>
+          GIFTS MADE<br>
+          <span class="hero-title-highlight">WITH LOVE</span>
         </h1>
 
-        <p class="track-info-desc">
-          Enter your official order number to view your order summary, payment
-          details, production status, approved design, shipping information,
-          and request logs.
+        <a href="our-services.html" class="btn btn-filled btn-large hero-cta">
+          Order Now <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+        <p class="hero-description">
+          Happy Queen's Crafty House offers personalized gifts, intax, documents, nametag, ID photo, stickers, invitations, keychains, gift boxes, souvenirs and handcrafted products for every special occasion.
         </p>
 
-        <div class="track-detail-grid">
+        <div class="features">
 
-          <div class="track-detail">
-            <h4>Order Status</h4>
-            <p>Check if your order is in design, printing, packing, delivery, or completed status.</p>
+          <div class="feature-card">
+            <i class="fa-solid fa-gem"></i>
+            <h4>Premium</h4>
+            <span>Quality</span>
           </div>
 
-          <div class="track-detail">
-            <h4>Payment Summary</h4>
-            <p>Review recorded payments, balance, and payment references.</p>
+          <div class="feature-card">
+            <i class="fa-solid fa-truck-fast"></i>
+            <h4>Fast</h4>
+            <span>Delivery</span>
           </div>
 
-          <div class="track-detail">
-            <h4>Approved Design</h4>
-            <p>View the approved artwork or product design attached to your order.</p>
+          <div class="feature-card">
+            <i class="fa-solid fa-palette"></i>
+            <h4>Custom</h4>
+            <span>Designs</span>
           </div>
 
-          <div class="track-detail">
-            <h4>Shipping Details</h4>
-            <p>See courier, AWB/reference number, recipient details, and estimated delivery information.</p>
+          <div class="feature-card">
+            <i class="fa-solid fa-tags"></i>
+            <h4>Affordable</h4>
+            <span>Prices</span>
           </div>
 
         </div>
-
-        <div class="track-privacy-note">
-          <i class="fa-solid fa-lock"></i>
-          <p>For your privacy, only customers with a valid order number can open the order tracking summary.</p>
-        </div>
-
       </div>
 
-      <!-- Right card: form -->
-      <div class="track-card track-form-card">
-
-        <h2 class="track-form-title">TRACK YOUR ORDER</h2>
-
-        <form class="track-form" action="#" method="GET">
-
-          <div class="form-group">
-            <label for="order-number">Order Number</label>
-            <input type="text" id="order-number" name="order-number" placeholder="Enter your order number" required>
-          </div>
-
-          <button type="submit" class="btn btn-filled btn-large track-submit">
-            Login &amp; View Order Status
-          </button>
-
-        </form>
-
-        <p class="track-form-helper">
-          Your order details will open securely through our system portal
-          after a successful order number match.
-        </p>
-
-        <div class="track-form-links">
-          <a href="#" target="_blank" rel="noopener" class="btn btn-outline track-link-btn">
-            <i class="fa-brands fa-facebook-messenger"></i> Message on Facebook
-          </a>
-          <a href="#" target="_blank" rel="noopener" class="btn btn-outline track-link-btn">
-            <i class="fa-solid fa-phone"></i> Text/Call 09216354459
-          </a>
+      <div class="hero-image">
+        <div class="hero-image-frame">
+          <img src="images/right%20side.png" alt="Happy Queen's Crafty House sample work">
+          <div class="hero-image-badge">☆</div>
         </div>
-
-
-
       </div>
 
     </div>
@@ -178,6 +165,9 @@
       <span class="footer-copyright">&copy; 2025&ndash;2026 Happy Queen's Crafty House. All rights reserved.</span>
     </div>
   </footer>
+
+
+  <script src="../js/account-menu.js"></script>
 
 </body>
 </html>

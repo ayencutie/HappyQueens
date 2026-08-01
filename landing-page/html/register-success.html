@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Queen's Crafty House</title>
+  <title>Welcome! — Happy Queen's Crafty House</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
 
@@ -37,71 +38,24 @@
       </ul>
 
       <div class="nav-actions">
-        <button class="btn btn-outline">Log In</button>
-        <button class="btn btn-filled">Register</button>
+        <a href="login.html" class="btn btn-outline">Log In</a>
+        <a href="register.html" class="btn btn-filled">Register</a>
       </div>
 
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-background-shape"></div>
-
-    <div class="hero-content container">
-
-      <div class="hero-text">
-        <span class="hero-badge">
-          <span class="hero-badge-dot"></span>
-          Made to order, made with care
-        </span>
-
-        <h1 class="hero-title">
-          CUSTOMIZED<br>
-          GIFTS MADE<br>
-          <span class="hero-title-highlight">WITH LOVE</span>
-        </h1>
-
-        <p class="hero-description">
-          Happy Queen's Crafty House offers personalized gifts, intax, documents, nametag, ID photo, stickers, invitations, keychains, gift boxes, souvenirs and handcrafted products for every special occasion.
-        </p>
-
-        <div class="features">
-
-          <div class="feature-card">
-            <i class="fa-solid fa-gem"></i>
-            <h4>Premium</h4>
-            <span>Quality</span>
-          </div>
-
-          <div class="feature-card">
-            <i class="fa-solid fa-truck-fast"></i>
-            <h4>Fast</h4>
-            <span>Delivery</span>
-          </div>
-
-          <div class="feature-card">
-            <i class="fa-solid fa-palette"></i>
-            <h4>Custom</h4>
-            <span>Designs</span>
-          </div>
-
-          <div class="feature-card">
-            <i class="fa-solid fa-tags"></i>
-            <h4>Affordable</h4>
-            <span>Prices</span>
-          </div>
-
-        </div>
+  <!-- Success -->
+  <section class="auth-section">
+    <div class="auth-card auth-card-center">
+      <div class="auth-success-icon">
+        <i class="fa-solid fa-check"></i>
       </div>
+      <span class="auth-eyebrow">You're All Set</span>
+      <h1 id="welcomeHeading">Registration Complete!</h1>
+      <p class="auth-sub" id="welcomeSub">Your account has been created. You can now log in and start placing custom orders with Happy Queen's Crafty House.</p>
 
-      <div class="hero-image">
-        <div class="hero-image-frame">
-          <img src="images/right%20side.png" alt="Happy Queen's Crafty House sample work">
-          <div class="hero-image-badge">☆</div>
-        </div>
-      </div>
-
+      <button type="button" class="btn-auth-primary" onclick="location.href='index.html'">Go to Homepage</button>
     </div>
   </section>
 
@@ -149,6 +103,13 @@
       <span class="footer-copyright">&copy; 2025&ndash;2026 Happy Queen's Crafty House. All rights reserved.</span>
     </div>
   </footer>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('hq_registered_user') || 'null');
+    if (user && user.firstName) {
+      document.getElementById('welcomeHeading').textContent = 'Welcome, ' + user.firstName + '!';
+    }
+  </script>
 
 </body>
 </html>
