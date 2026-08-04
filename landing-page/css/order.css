@@ -1,0 +1,303 @@
+
+.page-banner p {
+  max-width: 1000px;
+  margin: 14px auto 0;
+  font-size: 16px;
+  color: var(--color-text-light);
+}
+
+
+/* ==========================================================
+   SECTION 1 : ORDER SECTION
+========================================================== */
+
+
+.order-section{
+    padding:60px 20px;
+    background-color: #E2EFF2;
+}
+
+.order-container{
+
+    max-width:1100px;
+    margin:auto;
+
+    display:flex;
+    background:#fff;
+
+    border-radius:20px;
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+
+}
+
+
+/* ==========================================================
+   SECTION 2 : LEFT PANEL
+========================================================== */
+
+.order-left{
+
+    width:45%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    padding:40px;
+
+    gap:30px;
+
+}
+
+
+/* ==========================================================
+   SECTION 3 : PREVIEW BOX
+========================================================== */
+
+.order-preview-box{
+
+    width:400px;
+    height:400px;
+
+    background:#5CD6DD;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+.order-preview-box img{
+
+    width:90%;
+    height:90%;
+
+    object-fit:contain;
+
+    display:none;
+
+}
+
+.order-preview-box p{
+
+    font-size:34px;
+    font-weight:bold;
+
+    text-align:center;
+
+}
+
+
+/* ==========================================================
+   SECTION 4 : BUTTONS
+========================================================== */
+
+.order-buttons{
+
+    width:360px;
+
+    display:flex;
+    justify-content:space-between;
+
+}
+
+.order-btn{
+
+    width:160px;
+    height:48px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#5CD6DD;
+
+    border:none;
+    border-radius:30px;
+
+    font-size:18px;
+    font-weight:bold;
+
+    color:#000;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    text-decoration:none;
+
+}
+
+.order-btn:hover{
+
+    background:#43c7cf;
+
+}
+
+
+/* ==========================================================
+   SECTION 5 : RIGHT PANEL
+========================================================== */
+
+.order-right{
+
+    width:55%;
+
+    background:#5CD6DD;
+
+    border-top-left-radius:260px;
+    border-bottom-left-radius:260px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    gap:20px;
+
+    padding:40px;
+
+}
+
+.order-right input,
+.order-right textarea{
+
+    width:320px;
+
+    padding:15px 20px;
+
+    border:none;
+    border-radius:25px;
+
+    outline:none;
+
+    font-size:17px;
+
+}
+
+.order-right textarea{
+
+    height:120px;
+
+    resize:none;
+
+}
+
+
+/* ==========================================================
+   SECTION 6 : SELECT BUTTON
+========================================================== */
+
+.order-right input,
+.order-right select,
+.order-right textarea{
+
+    width:400px;
+    padding:15px 20px 15px 20px;
+
+    border:none;
+    border-radius:25px;
+    outline:none;
+
+    font-size:17px;
+    background:#fff;
+}
+
+/* ==========================================================
+   SECTION 6 : NEXT BUTTON
+========================================================== */
+
+.order-next-btn{
+
+    width:170px;
+    height:50px;
+
+    border:none;
+    border-radius:30px;
+
+    background:#fff;
+
+    font-size:20px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.order-next-btn:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+/* ==========================================================
+   SECTION 7 : RESPONSIVE
+========================================================== */
+
+@media(max-width:900px){
+
+    .order-container{
+
+        flex-direction:column;
+
+    }
+
+    .order-left,
+    .order-right{
+
+        width:100%;
+
+    }
+
+    .order-right{
+
+        border-radius:0;
+
+    }
+
+}
+
+@media(max-width:500px){
+
+    .order-preview-box{
+
+        width:100%;
+
+        height:230px;
+
+    }
+
+    .order-buttons{
+
+        width:100%;
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .order-btn{
+
+        width:100%;
+
+    }
+
+    .order-right input,
+    .order-right textarea{
+
+        width:100%;
+
+    }
+
+}
