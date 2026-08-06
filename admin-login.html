@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Log In — Happy Queen's Crafty House</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-login.css">
+</head>
+<body class="admin-login-body">
+
+  <div class="admin-login-shell">
+
+    <!-- Brand side -->
+    <div class="admin-login-brand">
+      <div class="admin-login-brand-inner">
+        <div class="admin-login-logo">
+          <div class="logo-mark">
+            <img src="https://scontent.fmnl17-5.fna.fbcdn.net/v/t39.30808-6/574903601_1244383761044499_6185672699345779707_n.jpg?stp=dst-jpg_tt6&cstp=mx1500x1500&ctp=s1500x1500&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF9_bgph0-v6-rJ_ySImoFND3WxF8Aa7wIPdbEXwBrvAqWFffBVusn27o6ZnrpaCeWp-FOHq7MlkBnEoDXhyeUo&_nc_ohc=rd-Cc6x5caIQ7kNvwHENFi4&_nc_oc=Adquv0xwdOBhRmNsQCgZS4j9dC4R4x7-wAPWlbKNBwSaaKRSbdg6z5Chvud_Lh_WC3c&_nc_zt=23&_nc_ht=scontent.fmnl17-5.fna&_nc_gid=O9CuI3Bt0bLQmEqPBhsrxQ&_nc_ss=7b2a8&oh=00_AQFsH8U19C3oRXII54C1v6Ti06eoyspgYK8luRkEOp7YMA&oe=6A726ABF" alt="Happy Queen's logo">
+          </div>
+          <div>
+            <strong>Happy Queen's</strong>
+            <span>ADMIN PORTAL</span>
+          </div>
+        </div>
+
+        <h1>Manage your shop, all in one place.</h1>
+        <p>Track orders, update statuses, and keep tabs on your customers and services from a single dashboard.</p>
+
+        <ul class="admin-login-highlights">
+          <li><i class="fa-solid fa-receipt"></i> Real-time order tracking</li>
+          <li><i class="fa-solid fa-users"></i> Full customer directory</li>
+          <li><i class="fa-solid fa-chart-line"></i> Revenue &amp; status insights</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Login form side -->
+    <div class="admin-login-form-side">
+      <div class="admin-login-card">
+        <span class="auth-eyebrow">Restricted Access</span>
+        <h2>Admin Log In</h2>
+        <p class="admin-login-sub">Sign in with your staff credentials to continue.</p>
+
+        <form id="adminLoginForm" novalidate>
+          <div class="form-field">
+            <label for="adminEmail">Email Address</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" id="adminEmail" name="adminEmail" placeholder="admin@happyqueens.com" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="adminPassword">Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="adminPassword" name="adminPassword" placeholder="Enter your password" required>
+            </div>
+          </div>
+
+          <p class="admin-login-error" id="adminLoginError">Invalid email or password. Please try again.</p>
+
+          <button type="submit" class="btn-auth-primary">Log In to Admin Panel</button>
+        </form>
+
+        <p class="admin-login-footnote"><i class="fa-solid fa-shield-halved"></i> This portal is for authorized staff only.</p>
+
+        <p class="admin-login-demo-hint">Demo credentials: <strong>admin@happyqueens.com</strong> / <strong>admin123</strong></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/admin-login.js"></script>
+
+</body>
+</html>

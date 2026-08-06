@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (logoutBtn) {
     logoutBtn.addEventListener('click', function () {
-      // Front-end only: no real session yet, just returns to the login page
+      // Front-end only: no real session yet, just returns to the homepage
       alert('Logged out! (front-end demo only)');
-      window.location.href = 'index.html';
+      window.location.href = '/xampp/htdocs/HappyQueens/landing-page/html/index.html';
     });
   }
 });
