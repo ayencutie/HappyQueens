@@ -148,10 +148,10 @@
 
 .order-right{
 
-    width:55%;
+    width:60%;
 
     background:#5CD6DD;
-
+    
     border-top-left-radius:260px;
     border-bottom-left-radius:260px;
 
@@ -168,11 +168,11 @@
 
 .order-right input,
 .order-right textarea{
-
     width:320px;
-
+background:transparent;
     padding:15px 20px;
 
+    color:#333;
     border:none;
     border-radius:25px;
 
@@ -189,7 +189,6 @@
     resize:none;
 
 }
-
 
 /* ==========================================================
    SECTION 6 : SELECT BUTTON

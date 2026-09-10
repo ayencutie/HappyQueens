@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/login-modal.css">
     <link rel="stylesheet" href="../css/our-services.css">
     <link rel="stylesheet" href="../css/order.css">
+    <link rel="stylesheet" href="../css/account-menu.css">
   </head>
   <body>
 
@@ -33,17 +34,31 @@
         </div>
 
         <ul class="nav-menu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="homepage.html">Home</a></li>
+          <li><a href="about-us2.html">About Us</a></li>
           <li><a href="our-services.html">Our Services</a></li>
-          <li><a href="contact-us.html">Contact Us</a></li>
-          <li><a href="track-order.html">Track Order</a></li>
+          <li><a href="contact-us2.html">Contact Us</a></li>
+          <li><a href="track-order2.html">Track Order</a></li>
         </ul>
 
         <div class="nav-actions">
-          <button type="button" class="btn btn-outline" id="loginNavBtn">Log In</button>
-          <a href="register.html" class="btn btn-filled">Register</a>
+        <div class="account-menu" id="accountMenu">
+          <button type="button" class="account-trigger" id="accountMenuBtn" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-circle-user"></i>
+            <i class="fa-solid fa-chevron-down account-chevron"></i>
+          </button>
+
+          <div class="account-dropdown" id="accountDropdown" role="menu">
+            <a href="profile.html" class="account-dropdown-item" role="menuitem"><i class="fa-solid fa-user"></i> View Profile</a>
+            <a href="orders.html" class="account-dropdown-item" role="menuitem"><i class="fa-solid fa-box"></i> View Order</a>
+            <a href="settings.html" class="account-dropdown-item" role="menuitem"><i class="fa-solid fa-gear"></i> Settings</a>
+            <div class="account-dropdown-divider"></div>
+            <button type="button" class="account-dropdown-item account-dropdown-logout" id="logoutBtn" role="menuitem">
+              <i class="fa-solid fa-right-from-bracket"></i> Log Out
+            </button>
+          </div>
         </div>
+      </div>
 
       </nav>
     </header>
@@ -93,18 +108,17 @@
 
           <div class="order-right">
                 <select id="size" name="size">
-                  <option value="" selected disabled>Select Size</option>
-                  <option value="A4">A4</option>
-                  <option value="Short">Short</option>
-                  <option value="Long">Long</option>
+                  <option value="" selected disabled>Select Paper Type</option>
+                  <option value="A4">Glossy</option>
+                  <option value="Short">Matte</option>
                 </select>
 
               
-                <select id="color" name="color">
-                  <option value="" selected disabled>Select Color</option>
-                  <option value="Colored">Colored</option>
-                  <option value="Black & White">Black & White (B&W)</option>
-                </select>
+                <input
+                   type="number"
+                   placeholder="Inches"
+                   min="0"
+              >
 
               <input
                    type="number"
@@ -173,42 +187,10 @@
     </footer>
 
 
-    <!-- Log In modal -->
-  <div class="modal-overlay" id="loginModalOverlay">
-    <div class="auth-card auth-card-center" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
-      <button type="button" class="modal-close" id="loginModalClose" aria-label="Close">&times;</button>
-      <span class="auth-eyebrow">Welcome Back</span>
-      <h1 id="loginModalTitle">Log In</h1>
-      <p class="auth-sub">Enter your email or phone number and password.</p>
-      <form id="loginModalForm" novalidate style="text-align:left;">
-        <div class="form-field">
-          <label for="loginIdentifier">Email or Phone Number</label>
-          <div class="input-wrap">
-            <i class="fa-solid fa-user"></i>
-            <input type="text" id="loginIdentifier" name="loginIdentifier" placeholder="you@gmail.com or 09XX XXX XXXX" required>
-          </div>
-        </div>
-        <div class="form-field">
-          <label for="loginModalPassword">Password</label>
-          <div class="input-wrap">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" id="loginModalPassword" name="loginModalPassword" placeholder="Enter your password" required>
-          </div>
-        </div>
-        <p class="auth-footnote" style="margin:-6px 0 18px; text-align:right;"><a href="../html/forgot-password.html" id="forgotPasswordLink">Forgot password?</a></p>
-        <button type="submit" class="btn-auth-primary">Log In</button>
-      </form>
-      <div class="auth-divider">or</div>
-      <button type="button" class="btn-auth-google" id="googleModalLoginBtn">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">
-        Continue with Google
-      </button>
-      <p class="auth-footnote">Don't have an account yet? <button type="button" class="link-btn" id="goToRegisterBtn">Register</button></p>
-    </div>
-  </div>
 
     <script src="../js/login-modal.js"></script>
     <script src="../js/order.js"></script>
+    <script src="../js/account-menu.js"></script>
 
   </body>
   </html>
