@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Templates — Admin — Happy Queen's Crafty House</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="client-side/css/styles.css">
+  <link rel="stylesheet" href="client-side/css/account-menu.css">
+  <link rel="stylesheet" href="admin.css">
+
+  <style>
+    /* Only the bits admin.css doesn't already cover for this page:
+       the review-modal rows (naming/tagging files before saving) and
+       hiding the raw file input. Everything else — panel header,
+       dropzone, occasion tabs, template grid/cards — reuses the exact
+       same classes as the Services page's Templates tab, so both
+       pages render identically. */
+    .tm-review-row { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:10px; align-items:center; margin-bottom:10px; }
+    .tm-review-filename { font-size:12px; color:var(--color-text-light); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #tmFileInput { display:none; }
+  </style>
+</head>
+<body class="admin-body">
+
+  <div class="admin-shell">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar-brand">
+        <div class="logo-mark">
+          <img src="https://scontent.fmnl17-5.fna.fbcdn.net/v/t39.30808-6/574903601_1244383761044499_6185672699345779707_n.jpg?stp=dst-jpg_tt6&cstp=mx1500x1500&ctp=s1500x1500&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF9_bgph0-v6-rJ_ySImoFND3WxF8Aa7wIPdbEXwBrvAqWFffBVusn27o6ZnrpaCeWp-FOHq7MlkBnEoDXhyeUo&_nc_ohc=rd-Cc6x5caIQ7kNvwHENFi4&_nc_oc=Adquv0xwdOBhRmNsQCgZS4j9dC4R4x7-wAPWlbKNBwSaaKRSbdg6z5Chvud_Lh_WC3c&_nc_zt=23&_nc_ht=scontent.fmnl17-5.fna&_nc_gid=O9CuI3Bt0bLQmEqPBhsrxQ&_nc_ss=7b2a8&oh=00_AQFsH8U19C3oRXII54C1v6Ti06eoyspgYK8luRkEOp7YMA&oe=6A726ABF" alt="Happy Queen's logo">
+        </div>
+        <div class="admin-sidebar-brand-text">
+          <strong>Happy Queen's</strong>
+          <span>Admin Panel</span>
+        </div>
+      </div>
+
+      <nav class="admin-nav">
+        <div class="admin-nav-label">Overview</div>
+        <a href="admin-dashboard.html" class="admin-nav-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+
+        <div class="admin-nav-label">Manage</div>
+        <a href="admin-orders.html" class="admin-nav-link"><i class="fa-solid fa-receipt"></i> Orders</a>
+        <a href="admin-customers.html" class="admin-nav-link"><i class="fa-solid fa-users"></i> Customers</a>
+        <a href="admin-services.html" class="admin-nav-link"><i class="fa-solid fa-boxes-stacked"></i> Services</a>
+        <a href="admin-templates.html" class="admin-nav-link is-active"><i class="fa-solid fa-images"></i> Templates</a>
+
+        <div class="admin-nav-label">Store</div>
+        <a href="client-side/html/index.html" class="admin-nav-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Website</a>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        Logged in as <strong style="color:#fff;">Admin</strong>
+      </div>
+    </aside>
+
+    <div class="admin-main">
+
+      <!-- Topbar -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button type="button" class="admin-sidebar-toggle" id="adminSidebarToggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div>
+            <div class="admin-page-title" id="tmServiceTitle">Templates</div>
+            <div class="admin-page-subtitle"><a href="admin-templates.html" style="color:inherit;"><i class="fa-solid fa-arrow-left"></i> Back to Templates</a></div>
+          </div>
+        </div>
+
+        <div class="admin-topbar-right">
+          <span id="tmTemplateCount" style="color:var(--color-text-light); font-size:13px; font-weight:600;">0 templates</span>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="admin-content">
+        <div class="admin-panel">
+
+          <!-- Same markup/classes as the Services page's Templates tab
+               (admin-detail-panel-header / -actions, admin-occasion-tabs,
+               admin-dropzone, admin-detail-template-grid) so this page
+               looks identical to that view and both read/write the same
+               shared design store. -->
+          <div class="admin-detail-panel-header">
+            <div>
+              <h3>Design Templates</h3>
+              <p>Customers will choose from these designs when placing an order.</p>
+            </div>
+            <div class="admin-detail-panel-actions">
+              <button type="button" class="btn btn-outline" id="tmManageOccasionsBtn"><i class="fa-solid fa-images"></i> Occasions</button>
+              <button type="button" class="btn btn-filled" id="tmUploadBtn"><i class="fa-solid fa-plus"></i> Upload Designs</button>
+            </div>
+          </div>
+
+          <div class="admin-occasion-tabs" id="tmOccasionTabs"></div>
+
+          <div class="admin-dropzone" id="tmDropZone">
+            <div class="admin-dropzone-icon"><i class="fa-solid fa-arrow-up"></i></div>
+            <div class="admin-dropzone-title">Drop design files here</div>
+            <div class="admin-dropzone-sub">PNG, JPG, PDF, SVG — up to 20 MB each</div>
+            <button type="button" class="btn btn-filled admin-dropzone-browse" id="tmBrowseBtn">Browse Files</button>
+            <input type="file" id="tmFileInput" multiple accept=".png,.jpg,.jpeg,.pdf,.svg,image/png,image/jpeg,application/pdf,image/svg+xml">
+          </div>
+
+          <div class="admin-detail-template-grid" id="tmTemplateGrid"></div>
+          <div class="admin-option-groups-empty" id="tmEmptyState" style="display:none;">No templates uploaded yet</div>
+
+        </div>
+
+        <!-- Review modal: name + tag each file before saving -->
+        <div class="admin-modal-overlay" id="tmReviewModal">
+          <div class="admin-modal">
+            <h3>Name &amp; Tag Your Designs</h3>
+            <p class="admin-modal-sub">Give each design a name and an occasion tag before adding it to the library.</p>
+
+            <div id="tmReviewList"></div>
+
+            <div class="admin-modal-actions">
+              <button type="button" class="btn btn-outline" id="tmReviewCancel">Cancel</button>
+              <button type="button" class="btn btn-filled" id="tmReviewSave">Save Templates</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manage Occasions modal — same markup/behavior as the Services
+             page's version, so occasions edited here match there too. -->
+        <div class="admin-modal-overlay" id="tmOccasionsModal">
+          <div class="admin-modal">
+            <button type="button" class="admin-modal-close" id="tmOccasionsModalClose" aria-label="Close">&times;</button>
+            <h3>Template Occasions</h3>
+            <p class="admin-modal-sub" id="tmOccasionsModalSub">What kind of designs customers can choose from, e.g. Wedding, Birthday, Corporate.</p>
+
+            <div class="admin-chip-list" id="tmOccasionsChipList"></div>
+
+            <div class="admin-modal-field admin-chip-input-row">
+              <input type="text" id="tmNewOccasionInput" class="admin-modal-input" placeholder="e.g. Wedding">
+              <button type="button" class="btn btn-outline" id="tmAddOccasionBtn">Add</button>
+            </div>
+
+            <div class="admin-modal-actions">
+              <button type="button" class="btn btn-filled" id="tmOccasionsModalDone">Done</button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script>const TEMPLATE_MANAGER_SLUG = '{{SLUG}}';</script>
+  <script src="client-side/js/admin-data.js"></script>
+  <script src="client-side/js/template-store.js"></script>
+  <script src="client-side/js/admin-common.js"></script>
+  <script src="client-side/js/admin-template-manager.js"></script>
+  <script>
+    document.getElementById('logoutBtn') && document.getElementById('logoutBtn').addEventListener('click', function () {
+      alert('Logged out! (front-end demo only)');
+      window.location.href = 'admin-login.html';
+    });
+  </script>
+
+</body>
+</html>

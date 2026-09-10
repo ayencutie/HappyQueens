@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Templates — Admin — Happy Queen's Crafty House</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="client-side/css/styles.css">
+  <link rel="stylesheet" href="client-side/css/account-menu.css">
+  <link rel="stylesheet" href="admin.css">
+
+  <style>
+    /* Scoped styles for the Template Manager UI — self-contained so it
+       doesn't depend on classes that may not exist in admin.css yet. */
+    .tm-toolbar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:16px; }
+    .tm-search { flex:1; min-width:220px; padding:10px 14px; border-radius:10px; border:1px solid #d8e2e0; font-family:inherit; font-size:14px; }
+    .tm-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+    .tm-tab { padding:8px 16px; border-radius:999px; border:1px solid #d8e2e0; background:#fff; font-family:inherit; font-size:13px; font-weight:600; color:#3a5a56; cursor:pointer; }
+    .tm-tab.is-active { background:#1e4d47; border-color:#1e4d47; color:#fff; }
+    .tm-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:16px; margin-bottom:24px; }
+    .tm-card { border:1px solid #e3ece9; border-radius:14px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
+    .tm-card-image { width:100%; aspect-ratio:4/3; background:#f2f6f5; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .tm-card-image img { width:100%; height:100%; object-fit:cover; }
+    .tm-card-pdf { display:flex; flex-direction:column; align-items:center; gap:6px; color:#8a9c98; font-size:13px; font-weight:600; }
+    .tm-card-pdf i { font-size:28px; }
+    .tm-card-body { padding:10px 12px 0; }
+    .tm-card-occasion { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:#5a8f86; }
+    .tm-card-body h4 { margin:4px 0 0; font-size:14px; }
+    .tm-card-footer { padding:8px 12px 12px; display:flex; justify-content:flex-end; }
+    .tm-dropzone { border:2px dashed #b9d2cd; border-radius:16px; padding:48px 20px; text-align:center; background:#f4faf8; transition:background .15s, border-color .15s; }
+    .tm-dropzone.is-dragover { background:#e4f3ee; border-color:#1e4d47; }
+    .tm-dropzone i.tm-drop-icon { font-size:28px; color:#1e4d47; background:#dcefe9; width:64px; height:64px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:14px; }
+    .tm-dropzone h3 { margin:0 0 6px; }
+    .tm-dropzone p { margin:0 0 18px; color:#6c8783; font-size:13px; }
+    .tm-empty-state { text-align:center; color:#8a9c98; padding:18px 0; }
+    .tm-review-row { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:10px; align-items:center; margin-bottom:10px; }
+    .tm-review-filename { font-size:12px; color:#6c8783; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #tmFileInput { display:none; }
+  </style>
+</head>
+<body class="admin-body">
+
+  <div class="admin-shell">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar-brand">
+        <div class="logo-mark">
+          <img src="https://scontent.fmnl17-5.fna.fbcdn.net/v/t39.30808-6/574903601_1244383761044499_6185672699345779707_n.jpg?stp=dst-jpg_tt6&cstp=mx1500x1500&ctp=s1500x1500&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF9_bgph0-v6-rJ_ySImoFND3WxF8Aa7wIPdbEXwBrvAqWFffBVusn27o6ZnrpaCeWp-FOHq7MlkBnEoDXhyeUo&_nc_ohc=rd-Cc6x5caIQ7kNvwHENFi4&_nc_oc=Adquv0xwdOBhRmNsQCgZS4j9dC4R4x7-wAPWlbKNBwSaaKRSbdg6z5Chvud_Lh_WC3c&_nc_zt=23&_nc_ht=scontent.fmnl17-5.fna&_nc_gid=O9CuI3Bt0bLQmEqPBhsrxQ&_nc_ss=7b2a8&oh=00_AQFsH8U19C3oRXII54C1v6Ti06eoyspgYK8luRkEOp7YMA&oe=6A726ABF" alt="Happy Queen's logo">
+        </div>
+        <div class="admin-sidebar-brand-text">
+          <strong>Happy Queen's</strong>
+          <span>Admin Panel</span>
+        </div>
+      </div>
+
+      <nav class="admin-nav">
+        <div class="admin-nav-label">Overview</div>
+        <a href="admin-dashboard.html" class="admin-nav-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+
+        <div class="admin-nav-label">Manage</div>
+        <a href="admin-orders.html" class="admin-nav-link"><i class="fa-solid fa-receipt"></i> Orders</a>
+        <a href="admin-customers.html" class="admin-nav-link"><i class="fa-solid fa-users"></i> Customers</a>
+        <a href="admin-services.html" class="admin-nav-link"><i class="fa-solid fa-boxes-stacked"></i> Services</a>
+        <a href="admin-templates.html" class="admin-nav-link is-active"><i class="fa-solid fa-images"></i> Templates</a>
+
+        <div class="admin-nav-label">Store</div>
+        <a href="client-side/html/index.html" class="admin-nav-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Website</a>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        Logged in as <strong style="color:#fff;">Admin</strong>
+      </div>
+    </aside>
+
+    <div class="admin-main">
+
+      <!-- Topbar -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button type="button" class="admin-sidebar-toggle" id="adminSidebarToggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div>
+            <div class="admin-page-title" id="tmServiceTitle">Templates</div>
+            <div class="admin-page-subtitle"><a href="admin-templates.html" style="color:inherit;"><i class="fa-solid fa-arrow-left"></i> Back to Templates</a></div>
+          </div>
+        </div>
+
+        <div class="admin-topbar-right">
+          <span id="tmTemplateCount" style="color:#6c8783; font-size:13px; font-weight:600;">0 templates</span>
+          <button type="button" class="btn btn-filled" id="tmUploadBtn" style="padding:9px 18px; font-size:13px;"><i class="fa-solid fa-upload"></i> Upload Templates</button>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="admin-content">
+        <div class="admin-panel">
+
+          <div class="tm-toolbar">
+            <input type="text" id="tmSearch" class="tm-search" placeholder="Search templates...">
+          </div>
+
+          <div class="tm-tabs" id="tmOccasionTabs"></div>
+
+          <div class="tm-grid" id="tmTemplateGrid"></div>
+          <div class="tm-empty-state" id="tmEmptyState">No templates uploaded yet</div>
+
+          <div class="tm-dropzone" id="tmDropZone">
+            <i class="fa-solid fa-arrow-up tm-drop-icon"></i>
+            <h3>Drop your template designs here</h3>
+            <p>PNG, JPG, PDF, SVG — up to 20MB each</p>
+            <button type="button" class="btn btn-filled" id="tmBrowseBtn">Browse Files</button>
+            <input type="file" id="tmFileInput" multiple accept=".png,.jpg,.jpeg,.pdf,.svg,image/png,image/jpeg,application/pdf,image/svg+xml">
+          </div>
+
+        </div>
+
+        <!-- Review modal: name + tag each file before saving -->
+        <div class="admin-modal-overlay" id="tmReviewModal">
+          <div class="admin-modal">
+            <h3>Name &amp; Tag Your Designs</h3>
+            <p class="admin-modal-sub">Give each design a name and an occasion tag before adding it to the library.</p>
+
+            <div id="tmReviewList"></div>
+
+            <div class="admin-modal-actions">
+              <button type="button" class="btn btn-outline" id="tmReviewCancel">Cancel</button>
+              <button type="button" class="btn btn-filled" id="tmReviewSave">Save Templates</button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script>const TEMPLATE_MANAGER_SLUG = 'invitation-card';</script>
+  <script src="client-side/js/admin-data.js"></script>
+  <script src="client-side/js/template-store.js"></script>
+  <script src="client-side/js/admin-common.js"></script>
+  <script src="client-side/js/admin-template-manager.js"></script>
+  <script>
+    document.getElementById('logoutBtn') && document.getElementById('logoutBtn').addEventListener('click', function () {
+      alert('Logged out! (front-end demo only)');
+      window.location.href = 'admin-login.html';
+    });
+  </script>
+
+</body>
+</html>

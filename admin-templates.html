@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customers — Admin — Happy Queen's Crafty House</title>
+  <title>Templates — Admin — Happy Queen's Crafty House</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="landing-page/css/styles.css">
+  <link rel="stylesheet" href="client-side/css/styles.css">
   <link rel="stylesheet" href="client-side/css/account-menu.css">
   <link rel="stylesheet" href="admin.css">
 </head>
@@ -36,12 +36,12 @@
 
         <div class="admin-nav-label">Manage</div>
         <a href="admin-orders.html" class="admin-nav-link"><i class="fa-solid fa-receipt"></i> Orders</a>
-        <a href="admin-customers.html" class="admin-nav-link is-active"><i class="fa-solid fa-users"></i> Customers</a>
+        <a href="admin-customers.html" class="admin-nav-link"><i class="fa-solid fa-users"></i> Customers</a>
         <a href="admin-services.html" class="admin-nav-link"><i class="fa-solid fa-boxes-stacked"></i> Services</a>
-        <a href="admin-templates.html" class="admin-nav-link"><i class="fa-solid fa-images"></i> Templates</a>
+        <a href="admin-templates.html" class="admin-nav-link is-active"><i class="fa-solid fa-images"></i> Templates</a>
 
         <div class="admin-nav-label">Store</div>
-        <a href="index.html" class="admin-nav-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Website</a>
+        <a href="client-side/html/index.html" class="admin-nav-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Website</a>
       </nav>
 
       <div class="admin-sidebar-footer">
@@ -58,8 +58,8 @@
             <i class="fa-solid fa-bars"></i>
           </button>
           <div>
-            <div class="admin-page-title">Customers</div>
-            <div class="admin-page-subtitle">Everyone who has ordered from your shop.</div>
+            <div class="admin-page-title">Templates</div>
+            <div class="admin-page-subtitle">Manage the design templates customers can choose from per service.</div>
           </div>
         </div>
 
@@ -92,24 +92,16 @@
       <!-- Content -->
       <main class="admin-content">
         <div class="admin-panel">
+          <div class="admin-panel-header">
+            <span class="admin-panel-title">Templates by Service</span>
+          </div>
+          <p style="color:#6c8783; font-size:13px; margin:-8px 0 18px;">Click a service to manage its design templates.</p>
+
           <div class="admin-table-controls">
-            <input type="text" id="customersSearch" class="admin-inline-search" placeholder="Search by name or email...">
+            <input type="text" id="templatesSearch" class="admin-inline-search" placeholder="Search service name...">
           </div>
 
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Customer</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Orders</th>
-                  <th>Joined</th>
-                </tr>
-              </thead>
-              <tbody id="customersTableBody"></tbody>
-            </table>
-          </div>
+          <div class="admin-service-cards" id="templatesCardGrid"></div>
         </div>
 
       </main>
@@ -117,9 +109,10 @@
     </div>
   </div>
 
-  <script src="../js/admin-data.js"></script>
-  <script src="../js/admin-common.js"></script>
-  <script src="../js/admin.js"></script>
+  <script src="client-side/js/admin-data.js"></script>
+  <script src="client-side/js/template-store.js"></script>
+  <script src="client-side/js/admin-common.js"></script>
+  <script src="client-side/js/admin-templates.js"></script>
   <script>
     document.getElementById('logoutBtn').addEventListener('click', function () {
       alert('Logged out! (front-end demo only)');

@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="landing-page/css/styles.css">
+  <link rel="stylesheet" href="client-side/css/styles.css">
   <link rel="stylesheet" href="client-side/css/account-menu.css">
   <link rel="stylesheet" href="admin.css">
 </head>
@@ -38,6 +38,7 @@
         <a href="admin-orders.html" class="admin-nav-link is-active"><i class="fa-solid fa-receipt"></i> Orders</a>
         <a href="admin-customers.html" class="admin-nav-link"><i class="fa-solid fa-users"></i> Customers</a>
         <a href="admin-services.html" class="admin-nav-link"><i class="fa-solid fa-boxes-stacked"></i> Services</a>
+        <a href="admin-templates.html" class="admin-nav-link"><i class="fa-solid fa-images"></i> Templates</a>
 
         <div class="admin-nav-label">Store</div>
         <a href="index.html" class="admin-nav-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Website</a>
@@ -91,18 +92,19 @@
       <!-- Content -->
       <main class="admin-content">
         <div class="admin-panel">
+          <div class="admin-status-tabs" id="ordersStatusTabs">
+            <button type="button" class="admin-status-tab" data-status="all">All <span class="admin-status-tab-count" id="tabCount-all"></span></button>
+            <button type="button" class="admin-status-tab is-active" data-status="pending">Pending <span class="admin-status-tab-count" id="tabCount-pending"></span></button>
+            <button type="button" class="admin-status-tab" data-status="in-design">In Design <span class="admin-status-tab-count" id="tabCount-in-design"></span></button>
+            <button type="button" class="admin-status-tab" data-status="printing">Printing <span class="admin-status-tab-count" id="tabCount-printing"></span></button>
+            <button type="button" class="admin-status-tab" data-status="packing">Packing <span class="admin-status-tab-count" id="tabCount-packing"></span></button>
+            <button type="button" class="admin-status-tab" data-status="out-for-delivery">Out for Delivery <span class="admin-status-tab-count" id="tabCount-out-for-delivery"></span></button>
+            <button type="button" class="admin-status-tab" data-status="completed">Completed <span class="admin-status-tab-count" id="tabCount-completed"></span></button>
+            <button type="button" class="admin-status-tab" data-status="cancelled">Cancelled <span class="admin-status-tab-count" id="tabCount-cancelled"></span></button>
+          </div>
+
           <div class="admin-table-controls">
             <input type="text" id="ordersSearch" class="admin-inline-search" placeholder="Search order ID, customer, or service...">
-            <select id="ordersStatusFilter" class="admin-filter-select">
-              <option value="all">All Statuses</option>
-              <option value="pending">Pending</option>
-              <option value="in-design">In Design</option>
-              <option value="printing">Printing</option>
-              <option value="packing">Packing</option>
-              <option value="out-for-delivery">Out for Delivery</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
           </div>
 
           <div class="admin-table-wrap">
@@ -133,15 +135,158 @@
 
       </main>
 
+      <!-- Printable order slip (hidden on screen, shown only when printing) -->
+      <div id="printOrderSlip" class="print-order-slip"></div>
+
     </div>
   </div>
 
-  <script src="../js/admin-data.js"></script>
-  <script src="../js/admin.js"></script>
   <script>
-    document.getElementById('logoutBtn').addEventListener('click', function () {
-      alert('Logged out! (front-end demo only)');
-      window.location.href = 'admin-login.html';
+    // ---- Self-contained sample data + rendering (no external file dependency) ----
+    var ADMIN_STATUS_LABELS = {
+      'pending': 'Pending', 'in-design': 'In Design', 'printing': 'Printing',
+      'packing': 'Packing', 'out-for-delivery': 'Out for Delivery',
+      'completed': 'Completed', 'cancelled': 'Cancelled'
+    };
+    var ADMIN_SAMPLE_ORDERS = [
+      { id: 'HQ-1001', customer: 'Angela Reyes', service: 'Photo Magnet', qty: 12, total: 1800, payment: 'GCash', status: 'pending', date: '2026-08-24' },
+      { id: 'HQ-1002', customer: 'Miguel Santos', service: 'Invitation Card', qty: 100, total: 3500, payment: 'Cash', status: 'in-design', date: '2026-08-25' },
+      { id: 'HQ-1003', customer: 'Bea Fernandez', service: 'Tarpaulin', qty: 1, total: 450, payment: 'GCash', status: 'printing', date: '2026-08-25' },
+      { id: 'HQ-1004', customer: 'Carlo Dizon', service: 'Photo Magnet', qty: 24, total: 3600, payment: 'Bank Transfer', status: 'packing', date: '2026-08-26' },
+      { id: 'HQ-1005', customer: 'Nicole Torres', service: 'Invitation Card', qty: 50, total: 1750, payment: 'GCash', status: 'out-for-delivery', date: '2026-08-27' },
+      { id: 'HQ-1006', customer: 'Ramon Cruz', service: 'Tarpaulin', qty: 2, total: 900, payment: 'Cash', status: 'completed', date: '2026-08-27' },
+      { id: 'HQ-1007', customer: 'Trisha Manalo', service: 'Photo Magnet', qty: 6, total: 900, payment: 'GCash', status: 'cancelled', date: '2026-08-28' },
+      { id: 'HQ-1008', customer: 'Angela Reyes', service: 'Invitation Card', qty: 150, total: 5250, payment: 'Bank Transfer', status: 'pending', date: '2026-08-29' }
+    ];
+
+    function formatPeso(amount) { return '₱' + Number(amount).toLocaleString('en-PH'); }
+    function statusBadge(status) {
+      var label = ADMIN_STATUS_LABELS[status] || status;
+      return '<span class="status-badge status-' + status + '">' + label + '</span>';
+    }
+    function payBadge(payment) {
+      var cls = 'pay-' + payment.replace(/\s+/g, '-').split('-')[0];
+      return '<span class="pay-badge ' + cls + '">' + payment + '</span>';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var sidebar = document.getElementById('adminSidebar');
+      var sidebarToggle = document.getElementById('adminSidebarToggle');
+      if (sidebar && sidebarToggle) {
+        sidebarToggle.addEventListener('click', function () { sidebar.classList.toggle('is-open'); });
+      }
+
+      var ordersTableBody = document.getElementById('ordersTableBody');
+      var searchInput = document.getElementById('ordersSearch');
+      var statusTabs = document.getElementById('ordersStatusTabs');
+      var modal = document.getElementById('orderModal');
+      var modalClose = document.getElementById('orderModalClose');
+      var modalBody = document.getElementById('orderModalBody');
+      var currentStatus = 'pending';
+
+      function updateTabCounts() {
+        var counts = { all: ADMIN_SAMPLE_ORDERS.length };
+        ADMIN_SAMPLE_ORDERS.forEach(function (o) { counts[o.status] = (counts[o.status] || 0) + 1; });
+        Object.keys(counts).forEach(function (key) {
+          var el = document.getElementById('tabCount-' + key);
+          if (el) el.textContent = counts[key];
+        });
+        // Statuses with zero orders still need their tab count shown as 0
+        Object.keys(ADMIN_STATUS_LABELS).forEach(function (key) {
+          var el = document.getElementById('tabCount-' + key);
+          if (el && !(key in counts)) el.textContent = 0;
+        });
+      }
+
+      function renderOrders() {
+        var query = (searchInput ? searchInput.value : '').trim().toLowerCase();
+        var filtered = ADMIN_SAMPLE_ORDERS.filter(function (o) {
+          var matchesStatus = currentStatus === 'all' || o.status === currentStatus;
+          var matchesQuery = !query || o.id.toLowerCase().includes(query) || o.customer.toLowerCase().includes(query) || o.service.toLowerCase().includes(query);
+          return matchesStatus && matchesQuery;
+        });
+
+        if (filtered.length === 0) {
+          ordersTableBody.innerHTML = '<tr><td colspan="7" class="admin-table-empty">No orders match your search/filter.</td></tr>';
+          updateTabCounts();
+          return;
+        }
+
+        ordersTableBody.innerHTML = filtered.map(function (o) {
+          return '<tr data-order-id="' + o.id + '">' +
+            '<td class="admin-cell-strong">' + o.id + '</td>' +
+            '<td>' + o.customer + '</td>' +
+            '<td>' + o.service + '<span class="admin-cell-sub">Qty: ' + o.qty + '</span></td>' +
+            '<td>' + formatPeso(o.total) + '</td>' +
+            '<td>' + payBadge(o.payment) + '</td>' +
+            '<td>' + statusBadge(o.status) + '</td>' +
+            '<td><button type="button" class="admin-row-action view-order-btn" data-order-id="' + o.id + '" aria-label="View order"><i class="fa-solid fa-eye"></i></button></td>' +
+          '</tr>';
+        }).join('');
+
+        ordersTableBody.querySelectorAll('.view-order-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () { openOrderModal(btn.dataset.orderId); });
+        });
+
+        updateTabCounts();
+      }
+
+      function openOrderModal(orderId) {
+        var order = ADMIN_SAMPLE_ORDERS.find(function (o) { return o.id === orderId; });
+        if (!order || !modal || !modalBody) return;
+        var isLocked = order.status === 'cancelled' || order.status === 'completed';
+
+        var statusField = isLocked
+          ? '<div class="admin-modal-field"><label>Status</label>' + statusBadge(order.status) +
+            '<p class="admin-modal-hint">' + (order.status === 'cancelled' ? 'This order was cancelled by the customer.' : 'This order is completed and locked.') + '</p></div>'
+          : '<div class="admin-modal-field"><label for="orderStatusSelect">Update Status</label><select id="orderStatusSelect">' +
+              Object.keys(ADMIN_STATUS_LABELS).filter(function (key) { return key !== 'cancelled'; }).map(function (key) {
+                return '<option value="' + key + '"' + (key === order.status ? ' selected' : '') + '>' + ADMIN_STATUS_LABELS[key] + '</option>';
+              }).join('') + '</select></div>';
+
+        modalBody.innerHTML =
+          '<h3>' + order.id + '</h3>' +
+          '<p class="admin-modal-sub">Placed on ' + new Date(order.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) + '</p>' +
+          '<div class="admin-modal-row"><span>Customer</span><span>' + order.customer + '</span></div>' +
+          '<div class="admin-modal-row"><span>Service</span><span>' + order.service + '</span></div>' +
+          '<div class="admin-modal-row"><span>Quantity</span><span>' + order.qty + '</span></div>' +
+          '<div class="admin-modal-row"><span>Total</span><span>' + formatPeso(order.total) + '</span></div>' +
+          '<div class="admin-modal-row"><span>Payment</span><span>' + payBadge(order.payment) + '</span></div>' +
+          statusField +
+          '<div class="admin-modal-actions"><button type="button" class="btn btn-outline" id="orderModalCancel">Close</button></div>';
+
+        modal.classList.add('is-open');
+        var statusSelect = document.getElementById('orderStatusSelect');
+        if (statusSelect) statusSelect.addEventListener('change', function () { order.status = this.value; renderOrders(); });
+        document.getElementById('orderModalCancel').addEventListener('click', closeOrderModal);
+      }
+
+      function closeOrderModal() { if (modal) modal.classList.remove('is-open'); }
+
+      if (modalClose) modalClose.addEventListener('click', closeOrderModal);
+      if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) closeOrderModal(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeOrderModal(); });
+      if (searchInput) searchInput.addEventListener('input', renderOrders);
+      if (statusTabs) {
+        statusTabs.querySelectorAll('.admin-status-tab').forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            currentStatus = tab.dataset.status;
+            statusTabs.querySelectorAll('.admin-status-tab').forEach(function (t) { t.classList.remove('is-active'); });
+            tab.classList.add('is-active');
+            renderOrders();
+          });
+        });
+      }
+
+      renderOrders();
+
+      var logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+          alert('Logged out! (front-end demo only)');
+          window.location.href = 'admin-login.html';
+        });
+      }
     });
   </script>
 

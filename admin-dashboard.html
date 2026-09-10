@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="landing-page/css/styles.css">
+  <link rel="stylesheet" href="client-side/css/styles.css">
   <link rel="stylesheet" href="client-side/css/account-menu.css">
   <link rel="stylesheet" href="admin.css">
 </head>
@@ -38,6 +38,7 @@
         <a href="admin-orders.html" class="admin-nav-link"><i class="fa-solid fa-receipt"></i> Orders</a>
         <a href="admin-customers.html" class="admin-nav-link"><i class="fa-solid fa-users"></i> Customers</a>
         <a href="admin-services.html" class="admin-nav-link"><i class="fa-solid fa-boxes-stacked"></i> Services</a>
+        <a href="admin-templates.html" class="admin-nav-link"><i class="fa-solid fa-images"></i> Templates</a>
 
         <div class="admin-nav-label">Store</div>
         <a href="index.html" class="admin-nav-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Website</a>
@@ -134,12 +135,99 @@
     </div>
   </div>
 
-  <script src="../js/admin-data.js"></script>
-  <script src="../js/admin.js"></script>
   <script>
-    document.getElementById('logoutBtn').addEventListener('click', function () {
-      alert('Logged out! (front-end demo only)');
-      window.location.href = 'admin-login.html';
+    // ---- Self-contained sample data + rendering (no external file dependency) ----
+    var ADMIN_STATUS_LABELS = {
+      'pending': 'Pending', 'in-design': 'In Design', 'printing': 'Printing',
+      'packing': 'Packing', 'out-for-delivery': 'Out for Delivery',
+      'completed': 'Completed', 'cancelled': 'Cancelled'
+    };
+    var ADMIN_SAMPLE_ORDERS = [
+      { id: 'HQ-1001', customer: 'Angela Reyes', service: 'Photo Magnet', qty: 12, total: 1800, payment: 'GCash', status: 'pending', date: '2026-08-24' },
+      { id: 'HQ-1002', customer: 'Miguel Santos', service: 'Invitation Card', qty: 100, total: 3500, payment: 'Cash', status: 'in-design', date: '2026-08-25' },
+      { id: 'HQ-1003', customer: 'Bea Fernandez', service: 'Tarpaulin', qty: 1, total: 450, payment: 'GCash', status: 'printing', date: '2026-08-25' },
+      { id: 'HQ-1004', customer: 'Carlo Dizon', service: 'Photo Magnet', qty: 24, total: 3600, payment: 'Bank Transfer', status: 'packing', date: '2026-08-26' },
+      { id: 'HQ-1005', customer: 'Nicole Torres', service: 'Invitation Card', qty: 50, total: 1750, payment: 'GCash', status: 'out-for-delivery', date: '2026-08-27' },
+      { id: 'HQ-1006', customer: 'Ramon Cruz', service: 'Tarpaulin', qty: 2, total: 900, payment: 'Cash', status: 'completed', date: '2026-08-27' },
+      { id: 'HQ-1007', customer: 'Trisha Manalo', service: 'Photo Magnet', qty: 6, total: 900, payment: 'GCash', status: 'cancelled', date: '2026-08-28' },
+      { id: 'HQ-1008', customer: 'Angela Reyes', service: 'Invitation Card', qty: 150, total: 5250, payment: 'Bank Transfer', status: 'pending', date: '2026-08-29' }
+    ];
+
+    function formatPeso(amount) { return '₱' + Number(amount).toLocaleString('en-PH'); }
+    function statusBadge(status) {
+      var label = ADMIN_STATUS_LABELS[status] || status;
+      return '<span class="status-badge status-' + status + '">' + label + '</span>';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var sidebar = document.getElementById('adminSidebar');
+      var sidebarToggle = document.getElementById('adminSidebarToggle');
+      if (sidebar && sidebarToggle) {
+        sidebarToggle.addEventListener('click', function () { sidebar.classList.toggle('is-open'); });
+      }
+
+      // Stat cards
+      var dashboardStats = document.getElementById('dashboardStats');
+      if (dashboardStats) {
+        var totalOrders = ADMIN_SAMPLE_ORDERS.length;
+        var pendingCount = ADMIN_SAMPLE_ORDERS.filter(function (o) { return o.status === 'pending'; }).length;
+        var completedCount = ADMIN_SAMPLE_ORDERS.filter(function (o) { return o.status === 'completed'; }).length;
+        var revenue = ADMIN_SAMPLE_ORDERS.filter(function (o) { return o.status !== 'cancelled'; }).reduce(function (s, o) { return s + o.total; }, 0);
+
+        dashboardStats.innerHTML =
+          '<div class="admin-stat-card"><div class="admin-stat-icon tone-primary"><i class="fa-solid fa-receipt"></i></div>' +
+          '<div class="admin-stat-body"><div class="admin-stat-value">' + totalOrders + '</div><div class="admin-stat-label">Total Orders</div></div></div>' +
+          '<div class="admin-stat-card"><div class="admin-stat-icon tone-warn"><i class="fa-solid fa-hourglass-half"></i></div>' +
+          '<div class="admin-stat-body"><div class="admin-stat-value">' + pendingCount + '</div><div class="admin-stat-label">Pending Orders</div></div></div>' +
+          '<div class="admin-stat-card"><div class="admin-stat-icon tone-accent"><i class="fa-solid fa-circle-check"></i></div>' +
+          '<div class="admin-stat-body"><div class="admin-stat-value">' + completedCount + '</div><div class="admin-stat-label">Completed Orders</div></div></div>' +
+          '<div class="admin-stat-card"><div class="admin-stat-icon tone-danger"><i class="fa-solid fa-peso-sign"></i></div>' +
+          '<div class="admin-stat-body"><div class="admin-stat-value">' + formatPeso(revenue) + '</div><div class="admin-stat-label">Total Revenue</div></div></div>';
+      }
+
+      // Revenue bars
+      var dashboardBars = document.getElementById('dashboardBars');
+      if (dashboardBars) {
+        var totals = {};
+        ADMIN_SAMPLE_ORDERS.forEach(function (o) { if (o.status !== 'cancelled') totals[o.date] = (totals[o.date] || 0) + o.total; });
+        var days = Object.keys(totals).sort();
+        var max = Math.max.apply(null, Object.values(totals));
+        dashboardBars.innerHTML = days.map(function (day) {
+          var value = totals[day];
+          var heightPct = max ? Math.round((value / max) * 100) : 0;
+          var label = new Date(day + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          return '<div class="admin-bar-col"><div class="admin-bar" style="height:' + Math.max(heightPct, 6) + '%;" title="' + formatPeso(value) + '"></div><span class="admin-bar-label">' + label + '</span></div>';
+        }).join('');
+      }
+
+      // Status breakdown
+      var statusBreakdown = document.getElementById('statusBreakdown');
+      if (statusBreakdown) {
+        var colors = { 'pending': '#D99A2B', 'in-design': '#5A3FC0', 'printing': '#1D6FA5', 'packing': '#1E7A8C', 'out-for-delivery': '#B5590C', 'completed': '#22803F', 'cancelled': '#B23434' };
+        var counts = {};
+        ADMIN_SAMPLE_ORDERS.forEach(function (o) { counts[o.status] = (counts[o.status] || 0) + 1; });
+        statusBreakdown.innerHTML = Object.keys(ADMIN_STATUS_LABELS).map(function (key) {
+          var count = counts[key] || 0;
+          return '<div class="admin-status-row"><span class="admin-status-dot" style="background-color:' + colors[key] + ';"></span><span class="admin-status-row-name">' + ADMIN_STATUS_LABELS[key] + '</span><span class="admin-status-row-count">' + count + '</span></div>';
+        }).join('');
+      }
+
+      // Recent orders
+      var recentOrdersBody = document.getElementById('recentOrdersBody');
+      if (recentOrdersBody) {
+        var recent = ADMIN_SAMPLE_ORDERS.slice(-5).reverse();
+        recentOrdersBody.innerHTML = recent.map(function (o) {
+          return '<tr><td class="admin-cell-strong">' + o.id + '</td><td>' + o.customer + '</td><td>' + o.service + '</td><td>' + formatPeso(o.total) + '</td><td>' + statusBadge(o.status) + '</td></tr>';
+        }).join('');
+      }
+
+      var logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+          alert('Logged out! (front-end demo only)');
+          window.location.href = 'admin-login.html';
+        });
+      }
     });
   </script>
 
